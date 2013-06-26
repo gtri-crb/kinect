@@ -12,6 +12,14 @@ double xtotal;
 double ytotal;
 double ztotal;
 int counter = 0;
+Vector3D vectorArray[100];
+
+struct Vector3D 
+{
+	int x;
+	int y;
+	int z;
+} vector;
 
 int main()
 {   
@@ -53,16 +61,20 @@ int main()
 
 			}
 
-//	   Vector3D * vector = new Vector3D(xtotal/j, ytotal/j, ztotal/j);
-//	   arraything[counter] = vector;
-//	   counter = counter + 1;
+	    vector.x = xtotal/j;
+		vector.y = ytotal/j;
+		vector.z = ztotal/j;
+	    vectorArray[counter] = vector;
+ 	    counter = counter + 1;
 
   		std :: cout << "\ncounter : ";
 		std :: cout << counter;
-	    if (counter == 15) { 
+
+		//end counting when person is close enough to kinect
+	    if (vector.z <= 1.2) { 
 		    std :: cout << "\n";
 			for (int f = 0; f < counter; f ++) {
-//				cout << arraything[f];
+				cout << vectorArray[f];
 				std :: cout << "\n";
 				cout << "ok";
 				while (true) {}
