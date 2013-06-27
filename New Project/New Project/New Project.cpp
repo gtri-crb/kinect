@@ -35,7 +35,7 @@ int main()
 		ztotal = 0;
 
 		NuiSkeletonGetNextFrame(0, &ourframe); //Get a frame and stuff it into ourframe
-		for (int j = 0; j <= 19; j++)
+		for (int j = 0; j <= 9; j++)
 		{
 			NuiSkeletonGetNextFrame(0, &ourframe); //Get a frame and stuff it into ourframe
 			for (int i = 0; i < 1; i++)
@@ -79,13 +79,25 @@ int main()
 	    
 		
 		vectorArray[counter] = vector;
-		if (vector.z <= 1.2  && counter >= 5) { 
+		if (vector.z <= 1.1  && counter >= 3) { 
 		    std :: cout << "\n";
+			double xtotalstr = 0;
 			for (int f = 0; f < counter; f ++) {
-				cout << vectorArray[f].z;
+				cout << "X: " << vectorArray[f].x << " Y: " << vectorArray[f].y << " Z: " << vectorArray[f].z;
 				std :: cout << "\n";
+				xtotalstr += vectorArray[f].x;
 				
-				
+			}
+			double xtotaldev = 0;
+			for (int f = 0; f < counter; f++) 
+			{
+				xtotaldev += abs(xtotalstr/counter - vectorArray[f].x);
+			}
+			xtotaldev /= counter;
+			cout << "Dev: " << xtotaldev << endl;
+			if (xtotaldev>.04)
+			{
+				cout << "You trippin";
 			}
 			while (true) {}
 	    }
