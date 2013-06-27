@@ -141,19 +141,48 @@ int main()
 		    std :: cout << "\n";
 			//TEST CODES WILL GO HERE
 
-
+			//main test loop
 			double xtotalstr = 0;
+			double proptester = 0;
+			double scistester = 0;
+			double spastesterleft = 0;
+			double spastesterright = 0;
+			double steptesterleft = 0;
+			double steptesterright =0;
+			
 			for (int f = 0; f < counter; f ++) {
-				printSkeleton(bodyArray[f]);
+				//printSkeleton(bodyArray[f]);
 				cout << "\n";
 				xtotalstr += bodyArray[f].hip.x	;
+				proptester += (bodyArray[f].head.z - bodyArray[f].hip.z);
+				scistester += (bodyArray[f].rightknee.x - bodyArray[f].leftknee.x);
+				spastesterleft += (bodyArray[f].hip.z - bodyArray[f].leftfoot.z);
+				spastesterright += (bodyArray[f].hip.z - bodyArray[f].rightfoot.z);
+				steptesterleft += bodyArray[f].leftknee.y;
+				steptesterright += bodyArray[f].rightknee.y;
+				
 			}
+
+			//average to value comparison loop
 			double xtotaldev = 0;
 			for (int f = 0; f < counter; f++) 
 			{
 				xtotaldev += abs(xtotalstr/counter - bodyArray[f].hip.x);
 			}
 			xtotaldev /= counter;
+			proptester /= counter;
+			scistester /= counter;
+			spastesterleft /= counter;
+			spastesterright /= counter;
+			steptesterleft /= counter;
+			steptesterright /= counter;
+
+			cout << "Propulsive Gait Rating: " << proptester << endl;
+			cout << "Scissors Gait Rating: " << scistester << endl;
+			cout << "Spastic Gait Left Rating: " << spastesterleft << endl;
+			cout << "Spastic Gait Right Rating: " << spastesterright << endl;
+			cout << "Steppage Gait Left Rating: " << steptesterleft << endl;
+			cout << "Steppage Gait Right Rating: " << steptesterright << endl;
 			cout << "Dev: " << xtotaldev << endl;
 			if (xtotaldev>.04)
 			{
