@@ -47,6 +47,8 @@ struct Skeleton
 
 Skeleton bodyArray[100];
 
+void printSkeleton(Skeleton skel);
+void printVector3D(Vector3D vec);
 
 int main()
 {   
@@ -162,6 +164,8 @@ int main()
 	}
 
 	return 0;
+
+
 }
 
 void printSkeleton(Skeleton skel)
