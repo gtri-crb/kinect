@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <fstream>
 #include <Windows.h>
 #include <NuiApi.h>
 using namespace std;
@@ -60,7 +61,7 @@ int main()
 		Skeleton*body = new Skeleton();
 		
 		NuiSkeletonGetNextFrame(0, &ourframe); //Get a frame and stuff it into ourframe
-		for (int j = 0; j <= 9; j++)
+		for (int j = 0; j <= 2; j++)
 		{
 			NuiSkeletonGetNextFrame(0, &ourframe); //Get a frame and stuff it into ourframe
 			for (int i = 0; i < 1; i++)
@@ -77,12 +78,12 @@ int main()
 			   body->spine.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_SPINE].x;
 			   body->spine.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_SPINE].y;
 			   body->spine.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_SPINE].z;
-			   body->leftfoot.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_FOOT_LEFT].x;
-			   body->leftfoot.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_FOOT_LEFT].y;
-			   body->leftfoot.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_FOOT_LEFT].z;
-			   body->rightfoot.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_FOOT_RIGHT].x;
-			   body->rightfoot.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_FOOT_RIGHT].y;
-			   body->rightfoot.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_FOOT_RIGHT].z;
+			   body->leftfoot.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_ANKLE_LEFT].x;
+			   body->leftfoot.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_ANKLE_LEFT].y;
+			   body->leftfoot.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_ANKLE_LEFT].z;
+			   body->rightfoot.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_ANKLE_RIGHT].x;
+			   body->rightfoot.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_ANKLE_RIGHT].y;
+			   body->rightfoot.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_ANKLE_RIGHT].z;
 			   body->leftknee.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_KNEE_LEFT].x;
 			   body->leftknee.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_KNEE_LEFT].y;
 			   body->leftknee.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_KNEE_LEFT].z;
@@ -102,7 +103,7 @@ int main()
 			}
 			
 			cout << body->hip.z << endl;
-			if (j == 9){
+			if (j == 2){
 				body->hip.x /= (j+1);
 				body->hip.y /= (j+1);
 				body->hip.z /= (j+1);
@@ -126,7 +127,8 @@ int main()
 				body->leftknee.z /= (j+1);
 			}
   		std :: cout << "\ncounter : ";
-		std :: cout << counter;
+		std :: cout << counter << endl;
+
 
 
 		//end counting when person is close enough to kinect
@@ -134,9 +136,10 @@ int main()
 	    system("cls");//Clear the screen
 	}
 	    
-		
+
 		bodyArray[counter] = *body;
-		if (body->hip.z <= 1.3  && counter >= 3) { 
+		//Ends when you get too close
+		if (body->hip.z <= 1.0  && counter >= 3) { 
 
 		    std :: cout << "\n";
 			//TEST CODES WILL GO HERE
@@ -150,6 +153,13 @@ int main()
 			double steptesterleft = 0;
 			double steptesterright =0;
 			
+			for(int e = 0; e < counter; e++)
+			{
+				bodyArray[e].rightfoot.y = (bodyArray[e].rightfoot.y + bodyArray[e+1].rightfoot.y)/2;
+
+
+			}
+
 			for (int f = 0; f < counter; f ++) {
 				//printSkeleton(bodyArray[f]);
 				cout << "\n";
@@ -190,6 +200,11 @@ int main()
 			}
 			while (true) {}
 	    }
+		cout << endl;
+				cout << endl;
+						cout << endl;
+								cout << endl;
+		printSkeleton(*body);
 		counter ++;
 
 	}
@@ -199,20 +214,30 @@ int main()
 
 void printSkeleton(Skeleton skel)
 {
-	cout << "Hip: ";
-	printVector3D(skel.hip);
-	cout << "Head: ";
-	printVector3D(skel.head);
-	cout << "Spine: ";
-	printVector3D(skel.spine);
+	ofstream myfile;
+	myfile.open("shutupkevin.txt",ofstream::ate | ofstream::app);
+	//for (int f = 0; f < counter; f++) {
+//		getline (myfile,)
+	//	myfile << 
+//	myfile << "Right Foot: ";
+	myfile << skel.rightfoot.y << endl;
+//	myfile << "Left Foot: ";
+//	myfile << " (" << skel.leftfoot.x << "," << skel.leftfoot.y << "," << skel.leftfoot.z << ")" << endl;
+	myfile.close();
+	//cout << "Hip: ";
+	//printVector3D(skel.hip);
+	//cout << "Head: ";
+	//printVector3D(skel.head);
+	//cout << "Spine: ";
+	//printVector3D(skel.spine);
 	cout << "Right Foot: ";
 	printVector3D(skel.rightfoot);
 	cout << "Left Foot: ";
 	printVector3D(skel.leftfoot);
-	cout << "Right Knee: ";
-	printVector3D(skel.rightknee);
-	cout << "Left Knee: ";
-	printVector3D(skel.leftknee);
+	//cout << "Right Knee: ";
+	//printVector3D(skel.rightknee);
+	//cout << "Left Knee: ";
+	//printVector3D(skel.leftknee);
 
 }
 

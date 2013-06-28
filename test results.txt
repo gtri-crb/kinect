@@ -1,0 +1,55 @@
+kevin:
+prop gait: .00841'
+scissors gait: .1802
+spastic gait left: .0566
+spastic gait right: .09667
+steppage gait left: -0.30846
+steppage gait right: -.309015
+
+tejas:
+prop gait: -.065208
+scissors gait: .16542
+spastic gait left: -.04691
+spastic gait right: .00400306
+steppage gait left: -.302531
+steppage gait right: -.30105
+
+pranav:
+prop gait: -.033143
+scissors gait: .16213
+spastic gait left: 0.086179
+spastic gait right: .04984 
+steppage gait left: -.32672
+steppage gait right: -.32497
+
+Kevin:
+prop gait: .011455
+scissors gait: .179283
+spastic gait left: .0423385
+spastic gait right: .0665842
+steppage gait left: -.316825
+steppage gait right: -.31794
+
+Tejas
+prop gait: .045742
+scissors gait: .18001
+spastic gait left: .074289
+spastic gait right: -.0050077
+steppage gait left: -.32150
+steppage gait right: probably fine
+
+Pranav
+prop gait:-.0.0222732
+scissors gait: 0.149057
+spastic gait left: 0.0549369
+spastic gait right: .112011
+steppage gait left: -.325671
+steppage gait right: -.318578
+
+
+prop gait:
+scissors gait:
+spastic gait left:
+spastic gait right: 
+steppage gait left: 
+steppage gait right:
