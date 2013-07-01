@@ -11,6 +11,7 @@ using namespace std;
 
 
 int counter = 0;
+bool start = false;
 
 struct Vector3D 
 {
@@ -50,18 +51,62 @@ Skeleton bodyArray[1000];
 
 void printSkeleton(Skeleton skel);
 void printVector3D(Vector3D vec);
+void smooth();
 
 int main()
+
 {   
-	cout << "Hello world" << endl;
+
+	//Remove comments if you have no friends
+	///*
+	for(int delay = 0; delay <= 100; delay++)
+	{
+		cout << "Please get into position" << endl;
+		system("cls");
+	}
+	//*/
 	NuiInitialize(NUI_INITIALIZE_FLAG_USES_SKELETON);
 	NUI_SKELETON_FRAME ourframe;
+	NuiSkeletonGetNextFrame(0, &ourframe);
+	double tempTest = 0;
+	int loopControl = 0;
+
+	while (!start)
+	{
+		NuiSkeletonGetNextFrame(0, &ourframe);
+		
+		if (ourframe.SkeletonData[0].eTrackingState == NUI_SKELETON_TRACKED)
+		{
+			if (loopControl == 5)
+			{
+				tempTest = ourframe.SkeletonData[0].SkeletonPositions[NUI_SKELETON_POSITION_HIP_CENTER].z;
+				
+			}
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			cout << "READY TO GO.  Please begin walking," << endl;
+			system("cls");
+			if (tempTest - ourframe.SkeletonData[0].SkeletonPositions[NUI_SKELETON_POSITION_HIP_CENTER].z >= .01)
+			{ 
+				start = true;
+			}
+			loopControl++;
+		}
+	}
+
 	while (true) //For all of time
 	{
 		Skeleton*body = new Skeleton();
 		
-		NuiSkeletonGetNextFrame(0, &ourframe); //Get a frame and stuff it into ourframe
-		for (int j = 0; j <= 2; j++)
+		
+		for (int j = 0; j <= 0; j++)
 		{
 			NuiSkeletonGetNextFrame(0, &ourframe); //Get a frame and stuff it into ourframe
 			for (int i = 0; i < 1; i++)
@@ -69,6 +114,7 @@ int main()
 		   
 			if (ourframe.SkeletonData[i].eTrackingState == NUI_SKELETON_TRACKED) //See more on this line below
 			{
+				
 			   body->hip.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HIP_CENTER].x;	   		
 			   body->hip.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HIP_CENTER].y;
 			   body->hip.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_HIP_CENTER].z;
@@ -103,7 +149,7 @@ int main()
 			}
 			
 			cout << body->hip.z << endl;
-			if (j == 2){
+			if (j == 0){
 				body->hip.x /= (j+1);
 				body->hip.y /= (j+1);
 				body->hip.z /= (j+1);
@@ -153,15 +199,14 @@ int main()
 			double steptesterleft = 0;
 			double steptesterright =0;
 			
-			for(int e = 0; e < counter; e++)
-			{
-				bodyArray[e].rightfoot.y = (bodyArray[e].rightfoot.y + bodyArray[e+1].rightfoot.y)/2;
+			smooth();
+			smooth();
+			smooth();
 
+			remove( "shutupkevin.txt" );
 
-			}
-
-			for (int f = 0; f < counter; f ++) {
-				//printSkeleton(bodyArray[f]);
+			for (int f = 0; f < counter ; f ++) {
+				printSkeleton(bodyArray[f]);
 				cout << "\n";
 				xtotalstr += bodyArray[f].hip.x	;
 				proptester += (bodyArray[f].head.z - bodyArray[f].hip.z);
@@ -175,7 +220,7 @@ int main()
 
 			//average to value comparison loop
 			double xtotaldev = 0;
-			for (int f = 0; f < counter; f++) 
+			for (int f = 0; f < counter ; f++) 
 			{
 				xtotaldev += abs(xtotalstr/counter - bodyArray[f].hip.x);
 			}
@@ -204,7 +249,7 @@ int main()
 				cout << endl;
 						cout << endl;
 								cout << endl;
-		printSkeleton(*body);
+		//printSkeleton(*body);
 		counter ++;
 
 	}
@@ -215,12 +260,13 @@ int main()
 void printSkeleton(Skeleton skel)
 {
 	ofstream myfile;
+	
 	myfile.open("shutupkevin.txt",ofstream::ate | ofstream::app);
 	//for (int f = 0; f < counter; f++) {
 //		getline (myfile,)
 	//	myfile << 
 //	myfile << "Right Foot: ";
-	myfile << skel.rightfoot.y << endl;
+	myfile << skel.rightfoot.y << "\t" << skel.leftfoot.y << endl;
 //	myfile << "Left Foot: ";
 //	myfile << " (" << skel.leftfoot.x << "," << skel.leftfoot.y << "," << skel.leftfoot.z << ")" << endl;
 	myfile.close();
@@ -244,4 +290,32 @@ void printSkeleton(Skeleton skel)
 void printVector3D(Vector3D vec)
 {
 	cout << " (" << vec.x << "," << vec.y << "," << vec.z << ")" << endl;
+}
+
+/*
+void smooth()
+{
+	for(int e = 0; e < counter; e++)
+			{
+				bodyArray[e].rightfoot.y = (bodyArray[e].rightfoot.y + bodyArray[e+1].rightfoot.y)/2;
+				bodyArray[e].leftfoot.y = (bodyArray[e].leftfoot.y + bodyArray[e+1].leftfoot.y)/2;
+
+			}
+}
+*/
+
+void smooth()
+{
+	for(int e = 1; e < counter; e += 2)
+			{
+				bodyArray[e].rightfoot.y = (bodyArray[e].rightfoot.y + bodyArray[e+1].rightfoot.y + bodyArray[e-1].rightfoot.y)/3;
+				bodyArray[e].leftfoot.y = (bodyArray[e].leftfoot.y + bodyArray[e+1].leftfoot.y + bodyArray[e-1].leftfoot.y)/3;
+
+			}
+	for(int e = 2; e < counter; e += 2)
+			{
+				bodyArray[e].rightfoot.y = (bodyArray[e].rightfoot.y + bodyArray[e+1].rightfoot.y + bodyArray[e-1].rightfoot.y)/3;
+				bodyArray[e].leftfoot.y = (bodyArray[e].leftfoot.y + bodyArray[e+1].leftfoot.y + bodyArray[e-1].leftfoot.y)/3;
+
+			}
 }
