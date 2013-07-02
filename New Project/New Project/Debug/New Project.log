@@ -1,17 +1,19 @@
-﻿Build started 7/1/2013 2:13:34 PM.
-     1>Project "C:\Kinect Project\kinect\New Project\New Project\New Project.vcxproj" on node 2 (build target(s)).
+﻿Build started 7/2/2013 12:06:04 PM.
+     1>Project "C:\cygwin\home\Pranav\kinect\New Project\New Project\New Project.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\New Project.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\New Project.unsuccessfulbuild".
        ClCompile:
          All outputs are up-to-date.
        Link:
-         All outputs are up-to-date.
-         New Project.vcxproj -> C:\Kinect Project\kinect\New Project\Debug\New Project.exe
-       FinalizeBuildStatus:
-         Deleting file "Debug\New Project.unsuccessfulbuild".
-         Touching "Debug\New Project.lastbuildstate".
-     1>Done Building Project "C:\Kinect Project\kinect\New Project\New Project\New Project.vcxproj" (build target(s)).
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\cygwin\home\Pranav\kinect\New Project\Debug\New Project.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Program Files\Microsoft SDKs\Kinect\v1.7\lib\x86" "C:\Program Files\Microsoft SDKs\Kinect\v1.7\lib\x86\Kinect10.lib" "sfml-system-d.lib" "sfml-window-d.lib" "sfml-graphics-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\New Project.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\cygwin\home\Pranav\kinect\New Project\Debug\New Project.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\cygwin\home\Pranav\kinect\New Project\Debug\New Project.lib" /MACHINE:X86 "Debug\New Project.obj"
+         Debug\stdafx.obj
+     1>New Project.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+     1>New Project.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: float __thiscall sf::Time::asSeconds(void)const " (__imp_?asSeconds@Time@sf@@QBEMXZ) referenced in function _main
+     1>New Project.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ) referenced in function _main
+     1>New Project.obj : error LNK2019: unresolved external symbol "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ) referenced in function _main
+     1>C:\cygwin\home\Pranav\kinect\New Project\Debug\New Project.exe : fatal error LNK1120: 3 unresolved externals
+     1>Done Building Project "C:\cygwin\home\Pranav\kinect\New Project\New Project\New Project.vcxproj" (build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:00.05
+Time Elapsed 00:00:00.51
