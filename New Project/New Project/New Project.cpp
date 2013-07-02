@@ -6,7 +6,7 @@
 #include <fstream>
 #include <Windows.h>
 #include <NuiApi.h>
-#include <SFML/System.hpp>
+
 
 using namespace std;
 
@@ -59,19 +59,7 @@ int main()
 
 
 {   
-	sf::Clock Clock;
-	while (true){
 
-		while (Clock.getElapsedTime().asSeconds() < 5.f)
-		{
-			cout << Clock.getElapsedTime().asSeconds() << std::endl;
-			Sleep(0.5f);
-
-		}
-
-	}
-
-	
 	//Remove comments if you have no friends
 	///*
 	for(int delay = 0; delay <= 100; delay++)
