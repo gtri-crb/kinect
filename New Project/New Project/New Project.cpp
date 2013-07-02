@@ -6,6 +6,7 @@
 #include <fstream>
 #include <Windows.h>
 #include <NuiApi.h>
+
 using namespace std;
 
 
@@ -56,7 +57,7 @@ void smooth();
 int main()
 
 {   
-
+	
 	//Remove comments if you have no friends
 	///*
 	for(int delay = 0; delay <= 100; delay++)
@@ -136,6 +137,7 @@ int main()
 			   body->rightknee.x += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_KNEE_RIGHT].x;
 			   body->rightknee.y += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_KNEE_RIGHT].y;
 			   body->rightknee.z += ourframe.SkeletonData[i].SkeletonPositions[NUI_SKELETON_POSITION_KNEE_RIGHT].z;
+
 			}
 			else 
 			{
@@ -194,25 +196,29 @@ int main()
 			double xtotalstr = 0;
 			double proptester = 0;
 			double scistester = 0;
-			double spastesterleft = 0;
-			double spastesterright = 0;
 			double steptesterleft = 0;
 			double steptesterright =0;
 			
 			smooth();
 			smooth();
 			smooth();
+			smooth();
+			smooth();
+			smooth();
+			smooth();
+			smooth();
+			smooth();
+			smooth();
 
 			remove( "shutupkevin.txt" );
 
-			for (int f = 0; f < counter ; f ++) {
+			for (int f = 0; f < counter ; f ++) 
+			{
 				printSkeleton(bodyArray[f]);
 				cout << "\n";
 				xtotalstr += bodyArray[f].hip.x	;
 				proptester += (bodyArray[f].head.z - bodyArray[f].hip.z);
 				scistester += (bodyArray[f].rightknee.x - bodyArray[f].leftknee.x);
-				spastesterleft += (bodyArray[f].hip.z - bodyArray[f].leftfoot.z);
-				spastesterright += (bodyArray[f].hip.z - bodyArray[f].rightfoot.z);
 				steptesterleft += bodyArray[f].leftknee.y;
 				steptesterright += bodyArray[f].rightknee.y;
 				
@@ -227,22 +233,22 @@ int main()
 			xtotaldev /= counter;
 			proptester /= counter;
 			scistester /= counter;
-			spastesterleft /= counter;
-			spastesterright /= counter;
 			steptesterleft /= counter;
 			steptesterright /= counter;
 
 			cout << "Propulsive Gait Rating: " << proptester << endl;
 			cout << "Scissors Gait Rating: " << scistester << endl;
-			cout << "Spastic Gait Left Rating: " << spastesterleft << endl;
-			cout << "Spastic Gait Right Rating: " << spastesterright << endl;
 			cout << "Steppage Gait Left Rating: " << steptesterleft << endl;
 			cout << "Steppage Gait Right Rating: " << steptesterright << endl;
 			cout << "Dev: " << xtotaldev << endl;
 			if (xtotaldev>.04)
 			{
-				cout << "Go home, you're drunk";
+				cout << "Walk not straight.  Please redo." << endl;
 			}
+			if (scistester >= .2) cout << "You have a scissors gait" << endl;
+			if (proptester <= -.05) cout << "You're propulsive" << endl;
+			if (steptesterleft >= -.37) cout << "You have a steppage gait on your left side" << endl;
+			if (steptesterright >= -.37) cout << "You have a steppage gait on your right side" << endl;
 			while (true) {}
 	    }
 		cout << endl;
